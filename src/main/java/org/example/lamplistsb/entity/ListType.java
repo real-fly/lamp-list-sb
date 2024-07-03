@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "list_types")
+@Table(name = "list_type")
 public class ListType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

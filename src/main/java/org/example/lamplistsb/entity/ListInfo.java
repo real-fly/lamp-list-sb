@@ -4,13 +4,11 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.Instant;
-
 @Getter
 @Setter
 @Entity
-@Table(name = "lists")
-public class List {
+@Table(name = "list_info")
+public class ListInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -19,17 +17,11 @@ public class List {
     @Column(name = "type_id", nullable = false)
     private Integer typeId;
 
-    @Column(name = "library_name", nullable = false)
-    private String libraryName;
+    @Column(name = "name", nullable = false)
+    private String name;
 
     @Lob
     @Column(name = "description")
     private String description;
-
-    @Column(name = "value", nullable = false)
-    private String value;
-
-    @Column(name = "expiration", nullable = false)
-    private Instant expiration;
 
 }
