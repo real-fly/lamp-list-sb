@@ -6,6 +6,8 @@ import org.example.lamplistsb.service.ListTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ListTypeServiceImpl implements ListTypeService {
 
@@ -18,5 +20,10 @@ public class ListTypeServiceImpl implements ListTypeService {
         listType.setName(name);
         listType.setDescription(description);
         return listTypeRepository.save(listType);
+    }
+
+    @Override
+    public List<ListType> getListTypes() {
+        return listTypeRepository.findAll();
     }
 }
