@@ -15,8 +15,8 @@ public class ListTypeController {
     private ListTypeService listTypeService;
 
     @PostMapping//新建名单类型
-    public ListType createListType(@RequestParam String name, @RequestParam(required = false) String description) {
-        return listTypeService.createListType(name, description);
+    public ListType createListType(@RequestBody ListType listType) {
+        return listTypeService.createListType(listType.getName(), listType.getDescription());
     }
 
     @GetMapping//查询名单类型
