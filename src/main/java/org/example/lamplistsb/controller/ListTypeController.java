@@ -29,8 +29,9 @@ public class ListTypeController {
         listTypeService.deleteListType(id);
     }
 
-    @PutMapping//更新名单类型
-    public ListType updateListType(@RequestBody ListType listType) {
+    @PutMapping("/{id}")//更新名单类型
+    public ListType updateListType(@PathVariable Integer id, @RequestBody ListType listType) {
+        listType.setId(id);
         return listTypeService.updateListType(listType);
     }
 }

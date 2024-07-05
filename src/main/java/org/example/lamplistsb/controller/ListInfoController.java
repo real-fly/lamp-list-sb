@@ -28,8 +28,9 @@ public class ListInfoController {
         listInfoService.deleteListInfo(id);
     }
 
-    @PutMapping//更新具体名单库
-    public ListInfo updateListInfo(@RequestBody ListInfo listInfo) {
+    @PutMapping("/{id}")//更新具体名单库
+    public ListInfo updateListInfo(@PathVariable Integer id, @RequestBody ListInfo listInfo) {
+        listInfo.setId(id);
         return listInfoService.updateListInfo(listInfo);
     }
 }
