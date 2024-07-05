@@ -10,6 +10,6 @@ import java.util.List;
 public interface ListContentRepository extends JpaRepository<ListContent, Integer> {
     List<ListContent> findByInfoIdOrderByModifiedTimeDesc(Integer infoId);
     boolean existsByInfoIdAndValue(Integer infoId, String value);
-
     void deleteAllByIdIn(List<Integer> ids); // 修改方法
+    void deleteAllByInfoId(Integer infoId);
 }

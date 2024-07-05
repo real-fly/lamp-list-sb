@@ -7,4 +7,6 @@ import java.util.List;
 public interface ListInfoService {
     ListInfo createListInfo(Integer typeId, String name, String description);
     List<ListInfo> getListInfos();
+    void deleteListInfo(Integer id);
+    ListInfo updateListInfo(ListInfo listInfo);
 }

@@ -7,4 +7,6 @@ import java.util.List;
 public interface ListTypeService {
     ListType createListType(String name, String description);
     List<ListType> getListTypes();
+    void deleteListType(Integer id);
+    ListType updateListType(ListType listType);
 }

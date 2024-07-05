@@ -1,6 +1,7 @@
 package org.example.lamplistsb.service.Impl;
 
 import org.example.lamplistsb.entity.ListInfo;
+import org.example.lamplistsb.repository.ListContentRepository;
 import org.example.lamplistsb.repository.ListInfoRepository;
 import org.example.lamplistsb.service.ListInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,9 @@ public class ListInfoServiceImpl implements ListInfoService {
     @Autowired
     private ListInfoRepository listInfoRepository;
 
+    @Autowired
+    private ListContentRepository listContentRepository;
+
     @Override
     public ListInfo createListInfo(Integer typeId, String name, String description) {
         ListInfo listInfo = new ListInfo();
@@ -26,5 +30,22 @@ public class ListInfoServiceImpl implements ListInfoService {
     @Override
     public List<ListInfo> getListInfos() {
         return listInfoRepository.findAll();
+    }
+
+    @Override
+    public void deleteListInfo(Integer id) {
+        listInfoRepository.deleteById(id);
+        // 添加 null 检查以避免空指针异常
+        if (listContentRepository != null) {
+            listContentRepository.deleteAllByInfoId(id);
+        }
+    }
+
+    @Override
+    public ListInfo updateListInfo(ListInfo listInfo) {
+        if (listInfoRepository.existsById(listInfo.getId())) {
+            return listInfoRepository.save(listInfo);
+        }
+        return null;
     }
 }

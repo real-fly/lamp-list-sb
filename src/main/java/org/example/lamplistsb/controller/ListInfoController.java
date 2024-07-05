@@ -22,4 +22,14 @@ public class ListInfoController {
     public List<ListInfo> getListInfos() {
         return listInfoService.getListInfos();
     }
+
+    @DeleteMapping("/{id}")//删除具体名单库
+    public void deleteListInfo(@PathVariable Integer id) {
+        listInfoService.deleteListInfo(id);
+    }
+
+    @PutMapping//更新具体名单库
+    public ListInfo updateListInfo(@RequestBody ListInfo listInfo) {
+        return listInfoService.updateListInfo(listInfo);
+    }
 }
