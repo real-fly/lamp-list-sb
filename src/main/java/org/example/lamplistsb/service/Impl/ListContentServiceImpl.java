@@ -49,4 +49,9 @@ public class ListContentServiceImpl implements ListContentService {
     public boolean isValueInList(Integer infoId, String value) {
         return listContentRepository.existsByInfoIdAndValue(infoId, value);
     }
+
+    @Override
+    public List<ListContent> getallListContents() {
+        return listContentRepository.findAll();
+    }
 }

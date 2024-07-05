@@ -39,4 +39,9 @@ public class ListContentController {
     public boolean isValueInList(@RequestParam Integer infoId, @RequestParam String value) {
         return listContentService.isValueInList(infoId, value);
     }
+
+    @GetMapping("/all")
+    public List<ListContent> getallListContents() {
+        return listContentService.getallListContents();
+    }
 }

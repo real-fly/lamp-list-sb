@@ -11,4 +11,5 @@ public interface ListContentService {
     ListContent updateListContent(ListContent updatedContent);
     void deleteListContents(List<Integer> contentIds);
     boolean isValueInList(Integer infoId, String value);
+    List<ListContent> getallListContents();
 }
