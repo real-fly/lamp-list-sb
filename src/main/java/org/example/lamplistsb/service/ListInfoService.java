@@ -9,4 +9,5 @@ public interface ListInfoService {
     List<ListInfo> getListInfos();
     void deleteListInfo(Integer id);
     ListInfo updateListInfo(ListInfo listInfo);
+    ListInfo getListInfo(Integer id);
 }

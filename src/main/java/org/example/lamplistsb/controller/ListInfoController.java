@@ -33,4 +33,9 @@ public class ListInfoController {
         listInfo.setId(id);
         return listInfoService.updateListInfo(listInfo);
     }
+
+    @GetMapping("/{id}")//查询具体名单库
+    public ListInfo getListInfo(@PathVariable Integer id) {
+        return listInfoService.getListInfo(id);
+    }
 }

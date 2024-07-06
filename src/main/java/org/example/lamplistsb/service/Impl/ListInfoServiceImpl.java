@@ -48,4 +48,9 @@ public class ListInfoServiceImpl implements ListInfoService {
         }
         return null;
     }
+
+    @Override
+    public ListInfo getListInfo(Integer id) {
+        return listInfoRepository.findById(id).orElse(null);
+    }
 }
