@@ -19,6 +19,11 @@ public class ListContentController {
         return listContentService.addListContent(listContent);
     }
 
+    @GetMapping("/exists")
+    public boolean existsByInfoNameAndValue(@RequestParam String infoName, @RequestParam String value) {
+        return listContentService.existsByInfoNameAndValue(infoName, value);
+    }
+
     @GetMapping("/{infoId}")//查询名单内容
     public List<ListContent> getListContents(@PathVariable Integer infoId) {
         return listContentService.getListContents(infoId);
@@ -35,13 +40,9 @@ public class ListContentController {
         listContentService.deleteListContents(contentIds);
     }
 
-    @GetMapping("/exists")
-    public boolean isValueInList(@RequestParam Integer infoId, @RequestParam String value) {
-        return listContentService.isValueInList(infoId, value);
-    }
-
     @GetMapping("/all")
     public List<ListContent> getallListContents() {
         return listContentService.getallListContents();
     }
+
 }

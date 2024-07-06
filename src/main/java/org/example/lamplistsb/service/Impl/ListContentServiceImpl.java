@@ -1,7 +1,9 @@
 package org.example.lamplistsb.service.Impl;
 
 import org.example.lamplistsb.entity.ListContent;
+import org.example.lamplistsb.entity.ListInfo;
 import org.example.lamplistsb.repository.ListContentRepository;
+import org.example.lamplistsb.repository.ListInfoRepository;
 import org.example.lamplistsb.service.ListContentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,8 @@ public class ListContentServiceImpl implements ListContentService {
 
     @Autowired
     private ListContentRepository listContentRepository;
+    @Autowired
+    private ListInfoRepository listInfoRepository;
 
     @Override
     public ListContent addListContent(ListContent listContent) {
@@ -46,12 +50,16 @@ public class ListContentServiceImpl implements ListContentService {
     }
 
     @Override
-    public boolean isValueInList(Integer infoId, String value) {
-        return listContentRepository.existsByInfoIdAndValue(infoId, value);
+    public List<ListContent> getallListContents() {
+        return listContentRepository.findAll();
     }
 
     @Override
-    public List<ListContent> getallListContents() {
-        return listContentRepository.findAll();
+    public boolean existsByInfoNameAndValue(String infoName, String value) {
+        ListInfo listInfo = listInfoRepository.findByName(infoName);
+        if (listInfo == null) {
+            return false;
+        }
+        return listContentRepository.existsByInfoIdAndValue(listInfo.getId(), value);
     }
 }

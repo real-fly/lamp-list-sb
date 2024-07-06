@@ -10,6 +10,6 @@ public interface ListContentService {
     List<ListContent> getListContents(Integer infoId);
     ListContent updateListContent(ListContent updatedContent);
     void deleteListContents(List<Integer> contentIds);
-    boolean isValueInList(Integer infoId, String value);
     List<ListContent> getallListContents();
+    boolean existsByInfoNameAndValue(String infoName, String value);
 }
