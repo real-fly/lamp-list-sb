@@ -1,14 +1,14 @@
 package org.example.lamplistsb.service;
 
 import org.example.lamplistsb.entity.ListContent;
+import org.springframework.http.ResponseEntity;
 
-import java.time.Instant;
 import java.util.List;
 
 public interface ListContentService {
-    ListContent addListContent(ListContent listContent);
+    ResponseEntity<Object> addListContent(ListContent listContent);
     List<ListContent> getListContents(Integer infoId);
-    ListContent updateListContent(ListContent updatedContent);
+    ResponseEntity<Object> updateListContent(ListContent updatedContent);
     void deleteListContents(List<Integer> contentIds);
     List<ListContent> getallListContents();
     boolean existsByInfoNameAndValue(String infoName, String value);

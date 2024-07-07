@@ -4,6 +4,7 @@ import org.example.lamplistsb.entity.ListContent;
 import org.example.lamplistsb.service.ListContentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public class ListContentController {
     private ListContentService listContentService;
 
     @PostMapping//新建名单内容
-    public ListContent addListContent(@RequestBody ListContent listContent) {
+    public ResponseEntity<Object> addListContent(@RequestBody ListContent listContent) {
         return listContentService.addListContent(listContent);
     }
 
@@ -49,7 +50,7 @@ public class ListContentController {
     }
 
     @PutMapping("/{contentId}")//更新名单内容
-    public ListContent updateListContent(@PathVariable Integer contentId, @RequestBody ListContent updatedContent) {
+    public ResponseEntity<Object> updateListContent(@PathVariable Integer contentId, @RequestBody ListContent updatedContent) {
         updatedContent.setId(contentId);
         return listContentService.updateListContent(updatedContent);
     }

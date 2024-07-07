@@ -6,6 +6,8 @@ import org.example.lamplistsb.repository.ListContentRepository;
 import org.example.lamplistsb.repository.ListInfoRepository;
 import org.example.lamplistsb.service.ListContentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,26 +23,34 @@ public class ListContentServiceImpl implements ListContentService {
     private ListInfoRepository listInfoRepository;
 
     @Override
-    public ListContent addListContent(ListContent listContent) {
+    public ResponseEntity<Object> addListContent(ListContent listContent) {
         if (listContentRepository.existsByInfoIdAndValue(listContent.getInfoId(), listContent.getValue())) {
-            throw new RuntimeException("该值已在名单中，请重新输入后再试");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("该值已在名单中，请重新输入后再试");
         }
         listContent.setModifiedTime(Instant.now());
-        return listContentRepository.save(listContent);
+        ListContent savedContent = listContentRepository.save(listContent);
+        return ResponseEntity.ok(savedContent);
     }
 
     @Override
     public List<ListContent> getListContents(Integer infoId) {
-        return listContentRepository.findByInfoIdOrderByModifiedTimeDesc(infoId);
+        return listContentRepository.findByInfoId(infoId);
     }
 
     @Override
-    public ListContent updateListContent(ListContent updatedContent) {
-        if (listContentRepository.existsById(updatedContent.getId())) {
-            updatedContent.setModifiedTime(Instant.now());
-            return listContentRepository.save(updatedContent);
+    public ResponseEntity<Object> updateListContent(ListContent updatedContent) {
+        ListContent listContent = listContentRepository.findById(updatedContent.getId()).orElse(null);
+        if (listContent == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("未找到该名单内容");
         }
-        return null;
+        if (!listContent.getValue().equals(updatedContent.getValue())) {
+            if (listContentRepository.existsByInfoIdAndValue(listContent.getInfoId(), updatedContent.getValue())) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("修改后的值已在名单中，请重新输入后再试");
+            }
+        }
+        updatedContent.setModifiedTime(Instant.now());
+        ListContent savedContent = listContentRepository.save(updatedContent);
+        return ResponseEntity.ok(savedContent);
     }
 
     @Transactional
