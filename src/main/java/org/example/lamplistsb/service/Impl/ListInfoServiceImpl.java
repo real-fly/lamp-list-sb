@@ -53,4 +53,9 @@ public class ListInfoServiceImpl implements ListInfoService {
     public ListInfo getListInfo(Integer id) {
         return listInfoRepository.findById(id).orElse(null);
     }
+
+    @Override
+    public List<ListInfo> findAllByTypeId(Integer typeId) {
+        return listInfoRepository.findAllByTypeId(typeId);
+    }
 }

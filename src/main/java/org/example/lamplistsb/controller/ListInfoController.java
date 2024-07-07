@@ -38,4 +38,9 @@ public class ListInfoController {
     public ListInfo getListInfo(@PathVariable Integer id) {
         return listInfoService.getListInfo(id);
     }
+
+    @GetMapping("/type/{typeId}")//查询具体名单库
+    public List<ListInfo> findAllByTypeId(@PathVariable Integer typeId) {
+        return listInfoService.findAllByTypeId(typeId);
+    }
 }

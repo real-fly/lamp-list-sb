@@ -10,4 +10,5 @@ public interface ListInfoService {
     void deleteListInfo(Integer id);
     ListInfo updateListInfo(ListInfo listInfo);
     ListInfo getListInfo(Integer id);
+    List<ListInfo> findAllByTypeId(Integer typeId);
 }
