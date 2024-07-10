@@ -5,6 +5,8 @@ import org.example.lamplistsb.repository.ListContentRepository;
 import org.example.lamplistsb.repository.ListInfoRepository;
 import org.example.lamplistsb.service.ListInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,12 +21,11 @@ public class ListInfoServiceImpl implements ListInfoService {
     private ListContentRepository listContentRepository;
 
     @Override
-    public ListInfo createListInfo(Integer typeId, String name, String description) {
-        ListInfo listInfo = new ListInfo();
-        listInfo.setTypeId(typeId);
-        listInfo.setName(name);
-        listInfo.setDescription(description);
-        return listInfoRepository.save(listInfo);
+    public ResponseEntity<Object> createListInfo(ListInfo listInfo) {
+        if (listInfoRepository.existsByName(listInfo.getName())) {
+            return ResponseEntity.badRequest().body("该名单库已存在，请重新输入");
+        }
+        return ResponseEntity.ok(listInfoRepository.save(listInfo));
     }
 
     @Override
@@ -42,11 +43,17 @@ public class ListInfoServiceImpl implements ListInfoService {
     }
 
     @Override
-    public ListInfo updateListInfo(ListInfo listInfo) {
-        if (listInfoRepository.existsById(listInfo.getId())) {
-            return listInfoRepository.save(listInfo);
+    public ResponseEntity<Object> updateListInfo(ListInfo listInfo) {
+        ListInfo listInfoToUpdate = listInfoRepository.findById(listInfo.getId()).orElse(null);
+        if (listInfoToUpdate == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("未找到该名单库");
         }
-        return null;
+        if(!listInfoToUpdate.getName().equals(listInfo.getName()) ) {
+            if (listInfoRepository.existsByName(listInfo.getName())) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("该名单库已存在，请重新输入");
+            }
+        }
+        return ResponseEntity.ok(listInfoRepository.save(listInfo));
     }
 
     @Override

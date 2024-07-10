@@ -9,4 +9,5 @@ public interface ListInfoRepository extends JpaRepository<ListInfo, Integer> {
     void deleteAllByTypeId(Integer typeId);
     List<ListInfo> findAllByTypeId(Integer typeId);
     ListInfo findByName(String name);
+    boolean existsByName(String name);
 }
