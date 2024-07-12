@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -27,7 +28,7 @@ public class ListContentServiceImpl implements ListContentService {
         if (listContentRepository.existsByInfoIdAndValue(listContent.getInfoId(), listContent.getValue())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("该值已在名单中，请重新输入后再试");
         }
-        listContent.setModifiedTime(Instant.now());
+        listContent.setModifiedTime(LocalDateTime.now());
         ListContent savedContent = listContentRepository.save(listContent);
         return ResponseEntity.ok(savedContent);
     }
@@ -48,7 +49,7 @@ public class ListContentServiceImpl implements ListContentService {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("修改后的值已在名单中，请重新输入后再试");
             }
         }
-        updatedContent.setModifiedTime(Instant.now());
+        updatedContent.setModifiedTime(LocalDateTime.now());
         ListContent savedContent = listContentRepository.save(updatedContent);
         return ResponseEntity.ok(savedContent);
     }

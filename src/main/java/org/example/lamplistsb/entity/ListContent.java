@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -27,9 +27,9 @@ public class ListContent {
     private String description;
 
     @Column(name = "expiration", nullable = false)
-    private Instant expiration;
+    private LocalDateTime expiration;
 
     @Column(name = "modifiedTime")
-    private Instant modifiedTime;
+    private LocalDateTime modifiedTime;
 
 }
